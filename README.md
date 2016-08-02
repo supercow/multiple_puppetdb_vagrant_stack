@@ -1,3 +1,18 @@
+# Sandbox environment for multiple PuppetDB Servers
+
+This Vagrant environment is a fork of puppet-debugging-kit that automatically
+creates a Puppet infrastructure with:
+
+- A MoM with a PostgreSQL database
+- Two PuppetDB servers behind an HAProxy load balancer
+- A compile master that connects to the PuppetDB HAProxy VIP
+
+A shared certificate is generated and shared amongst the PuppetDB servers to
+avoid issues related to [SERVER-207](https://tickets.puppetlabs.com/browse/SERVER-207).
+
+It is created as an example of how to configure multiple PuppetDB
+instances when load needs to be distributed.
+
 # Puppet Debugging Kit
 _The only good bug is a dead bug._
 
