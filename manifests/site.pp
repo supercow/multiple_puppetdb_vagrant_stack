@@ -65,7 +65,7 @@ node 'haproxy.vm' {
     listening_service => 'puppetdb',
   }
   haproxy::balancermember { 'puppetdb-mom.vm':
-    server_names      => 'puppetdb2.vm',
+    server_names      => 'puppetdb-mom.vm',
     ipaddresses       => $mom_ip,
     ports             => '8081',
     listening_service => 'puppetdb',
