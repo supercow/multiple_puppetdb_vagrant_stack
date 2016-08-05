@@ -1,7 +1,7 @@
 # ensure puppetdb.vm is resolvable to everyone
 # This is a hack. Don't do this on a real machine
 $haproxy = generate('/bin/getent', 'hosts', 'haproxy.vm')
-$haproxy_ip = regsubst($haproxy,'^([0-9.]*).*$','\1')
+$haproxy_ip = strip(regsubst($haproxy,'^([0-9.]*).*$','\1'))
 host { 'puppetdb.vm':
   ensure       => 'present',
   ip           => $haproxy_ip,
@@ -46,11 +46,11 @@ node 'haproxy.vm' {
   # figure out the PDB IP addresses
   # change these lines on a real system, will only work with hosts files
   $pdb1 = generate('/bin/getent', 'hosts', 'pdb1.vm')
-  $pdb1_ip = regsubst($pdb1,'^([0-9.]*).*$','\1')
+  $pdb1_ip = strip(regsubst($pdb1,'^([0-9.]*).*$','\1'))
   $pdb2 = generate('/bin/getent', 'hosts', 'pdb2.vm')
-  $pdb2_ip = regsubst($pdb2,'^([0-9.]*).*$','\1')
+  $pdb2_ip = strip(regsubst($pdb2,'^([0-9.]*).*$','\1'))
   $mom = generate('/bin/getent', 'hosts', 'mom.vm')
-  $mom_ip = regsubst($mom,'^([0-9.]*).*$','\1')
+  $mom_ip = strip(regsubst($mom,'^([0-9.]*).*$','\1'))
 
   haproxy::balancermember { 'puppetdb-pdb1.vm':
     server_names      => 'pdb1.vm',
