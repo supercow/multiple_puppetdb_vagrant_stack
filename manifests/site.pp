@@ -74,7 +74,7 @@ node /^pdb\d\.vm/ {
 
 node 'mom.vm' {
   class { '::puppetdb_shared_cert::ca':
-    certname      => 'haproxy.vm' 
+    certname      => 'haproxy.vm',
     dns_alt_names => ['haproxy','puppetdb','puppetdb.vm'],
   }
 }
