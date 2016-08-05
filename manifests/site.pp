@@ -86,15 +86,21 @@ node /^pdb\d\.vm/ {
   }
 
   # Install PuppetDB
-  class { 'puppet_enterprise::profile::puppetdb':
-    certname              => 'puppetdb.vm',
-    database_name         => 'mom.vm',
-  }
+  #class { 'puppet_enterprise::profile::puppetdb':
+  #  certname              => 'puppetdb.vm',
+  #  database_name         => 'mom.vm',
+  #}
 
 }
 
 node 'mom.vm' {
   # Generate the shared cert for PuppetDB
+  node_group { 'Standalone PuppetDB':
+    parent  => 'PE Infrastructure',
+    rule    => ['and', ['~',['fact','fqdn'],'^pdb\d+\.vm$']],
+    classes => {'puppet_enterprise::profile::puppetdb' => { 'certname' => 'puppetdb.vm' } },
+  }
+
   class { '::puppetdb_shared_cert::ca':
     certname      => 'puppetdb.vm',
     dns_alt_names => ['haproxy','haproxy.vm','puppetdb'],
