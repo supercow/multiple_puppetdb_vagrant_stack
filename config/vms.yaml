@@ -1,0 +1,45 @@
+---
+vms:
+  - name: mom.vm
+    box: puppetlabs/centos-7.2-64-nocm
+    roles:
+      - pe-forward-console
+      - pe-memory-tuning2
+      - pe-mom
+      - el-stop-firewall
+      - el-fix-path
+      - 2gb-memory
+      - base
+
+  - name: haproxy.vm
+    box: puppetlabs/centos-7.2-64-nocm
+    roles:
+      - haproxy
+      - el-stop-firewall
+      - el-fix-path
+      - base
+
+  - name: pdb1.vm
+    box: puppetlabs/centos-7.2-64-nocm
+    roles:
+      - pe-pdb
+      - el-stop-firewall
+      - el-fix-path
+      - base
+
+  - name: pdb2.vm
+    box: puppetlabs/centos-7.2-64-nocm
+    roles:
+      - pe-pdb
+      - el-stop-firewall
+      - el-fix-path
+      - base
+
+  - name: agent.vm
+    box: puppetlabs/centos-7.2-64-nocm
+    roles:
+      - el-stop-firewall
+      - el-fix-path
+      - base
+
+# vim: set ft=yaml:

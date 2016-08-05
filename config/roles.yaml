@@ -1,0 +1,11 @@
+roles:
+  pe-mom:
+    provisioners:
+      - {type: pe_bootstrap, version: 2016.2.0, autosign: ['*']}
+      - {type: shell, inline: '/vagrant/scripts/initial_code_deploy.sh' }
+  pe-pdb:
+    provisioners:
+      - {type: shell, inline: 'curl -k https://mom.vm:8140/packages/current/install.bash | sudo bash -s main:server=mom.vm'}
+  haproxy:
+    provisioners:
+      - {type: shell, inline: 'curl -k https://mom.vm:8140/packages/current/install.bash | sudo bash -s main:server=mom.vm'}
