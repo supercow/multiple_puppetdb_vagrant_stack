@@ -79,17 +79,18 @@ node 'haproxy.vm' {
 }
 
 node /^pdb\d\.vm/ {
+  # Use a shared cert due to SERVER-207
+  class { '::puppetdb_shared_cert::puppetdb':
+    certname => 'puppetdb.vm',
+    before   => Puppet_enterprise::Certs['pe-puppetdb'],
+  }
+
   # Install PuppetDB
   class { 'puppet_enterprise::profile::puppetdb':
     certname              => 'puppetdb.vm',
     database_name         => 'mom.vm',
   }
 
-  # Use a shared cert due to SERVER-207
-  class { '::puppetdb_shared_cert::puppetdb':
-    certname => 'puppetdb.vm',
-    before   => Puppet_enterprise::Certs['pe-puppetdb'],
-  }
 }
 
 node 'mom.vm' {
