@@ -3,9 +3,9 @@
 $haproxy = generate('/bin/getent', 'hosts', 'haproxy.vm')
 $haproxy_ip = regsubst($haproxy,'^([0-9.]*).*$','\1')
 host { 'puppetdb.vm':
-  ensure       => 'present'
+  ensure       => 'present',
   ip           => $haproxy_ip,
-  host_aliases => ['puppetdb']
+  host_aliases => ['puppetdb'],
 }
 
 node 'haproxy.vm' {
