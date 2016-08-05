@@ -1,3 +1,13 @@
+# ensure puppetdb.vm is resolvable to everyone
+# This is a hack. Don't do this on a real machine
+$haproxy = generate('/bin/getent', 'hosts', 'haproxy.vm')
+$haproxy_ip = regsubst($haproxy,'^([0-9.]*).*$','\1')
+host { 'puppetdb.vm':
+  ensure       => 'present'
+  ip           => $haproxy_ip,
+  host_aliases => ['puppetdb']
+}
+
 node 'haproxy.vm' {
   class { '::haproxy':
     global_options => {
