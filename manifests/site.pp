@@ -94,6 +94,11 @@ node /^pdb\d\.vm/ {
 }
 
 node 'mom.vm' {
+  package { 'puppetclassify':
+    ensure   => present,
+    provider => 'puppet_gem',
+  }
+
   # Generate the shared cert for PuppetDB
   node_group { 'Standalone PuppetDB':
     parent  => 'PE Infrastructure',
