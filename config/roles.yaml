@@ -1,7 +1,7 @@
 roles:
   pe-mom:
     provisioners:
-      - {type: pe_bootstrap, version: 2016.2.0, autosign: ['*']}
+      - {type: pe_bootstrap, role: !ruby/sym master, version: 2016.2.0, autosign: ['*']}
       - {type: shell, inline: '/vagrant/scripts/initial_code_deploy.sh' }
   pe-pdb:
     provisioners:
