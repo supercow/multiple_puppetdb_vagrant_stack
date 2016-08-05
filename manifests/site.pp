@@ -49,6 +49,8 @@ node 'haproxy.vm' {
   $pdb1_ip = regsubst($pdb1,'^([0-9.]*).*$','\1')
   $pdb2 = generate('/bin/getent', 'hosts', 'pdb2.vm')
   $pdb2_ip = regsubst($pdb2,'^([0-9.]*).*$','\1')
+  $mom = generate('/bin/getent', 'hosts', 'mom.vm')
+  $mom_ip = regsubst($mom,'^([0-9.]*).*$','\1')
 
   haproxy::balancermember { 'puppetdb-pdb1.vm':
     server_names      => 'pdb1.vm',
@@ -59,6 +61,12 @@ node 'haproxy.vm' {
   haproxy::balancermember { 'puppetdb-pdb2.vm':
     server_names      => 'puppetdb2.vm',
     ipaddresses       => $pdb2_ip,
+    ports             => '8081',
+    listening_service => 'puppetdb',
+  }
+  haproxy::balancermember { 'puppetdb-mom.vm':
+    server_names      => 'puppetdb2.vm',
+    ipaddresses       => $mom_ip,
     ports             => '8081',
     listening_service => 'puppetdb',
   }
