@@ -80,7 +80,7 @@ node /^pdb\d\.vm/ {
   }
   # Use a shared cert due to SERVER-207
   class { '::puppetdb_shared_cert::puppetdb':
-    certname => 'puppetdb.vm',
+    certname => 'pe-puppetdb',
     before   => Puppet_enterprise::Certs['pe-puppetdb'],
   }
 
@@ -102,12 +102,12 @@ node 'mom.vm' {
   node_group { 'Standalone PuppetDB':
     parent  => 'PE Infrastructure',
     rule    => ['and', ['~',['fact','fqdn'],'^pdb\d+\.vm$']],
-    classes => {'puppet_enterprise::profile::puppetdb' => { 'certname' => 'puppetdb.vm' } },
+    classes => {'puppet_enterprise::profile::puppetdb' => { 'certname' => 'pe-puppetdb' } },
   }
 
   class { '::puppetdb_shared_cert::ca':
-    certname      => 'puppetdb.vm',
-    dns_alt_names => ['haproxy','haproxy.vm','puppetdb'],
+    certname      => 'pe-puppetdb',
+    dns_alt_names => ['haproxy','haproxy.vm','puppetdb', 'puppetdb.vm'],
   }
 }
 

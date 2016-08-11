@@ -5,3 +5,8 @@
 
 # fix for weird default values error
 puppet_enterprise::puppet_master_host: 'mom.vm'
+puppet_enterprise::profile::database::puppetdb_hosts:
+  - 'mom.vm'
+  - 'pdb1.vm'
+  - 'pdb2.vm'
+  - 'pe-puppetdb'
