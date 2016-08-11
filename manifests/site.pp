@@ -109,6 +109,15 @@ node 'mom.vm' {
     certname      => 'pe-puppetdb',
     dns_alt_names => ['haproxy','haproxy.vm','puppetdb', 'puppetdb.vm'],
   }
+
+  # Ideally, this would be done through hieradata, but we don't apply the database profile...
+  file_line { 'pe-puppetdb ident mapping':
+    path => '/opt/puppetlabs/server/data/postgresql/9.4/data/pg_ident.conf',
+    line => 'pe-puppetdb-map pe-puppetdb pe-puppetdb',
+  }
+
+
+
 }
 
 
