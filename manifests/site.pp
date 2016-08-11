@@ -79,6 +79,11 @@ node 'haproxy.vm' {
 }
 
 node /^pdb\d\.vm/ {
+
+  user { 'pe-puppet':
+    ensure => present,
+    gid    => 'pe-puppetdb',
+  }
   # Use a shared cert due to SERVER-207
   class { '::puppetdb_shared_cert::puppetdb':
     certname => 'puppetdb.vm',
