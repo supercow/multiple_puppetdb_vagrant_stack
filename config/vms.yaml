@@ -35,6 +35,16 @@ vms:
       - el-fix-path
       - base
 
+  - name: compile1.vm
+    box: puppetlabs/centos-7.2-64-nocm
+    roles:
+      - pe-memory-tuning2
+      - pe-compile
+      - el-stop-firewall
+      - el-fix-path
+      - 1gb-memory
+      - base
+
   - name: agent.vm
     box: puppetlabs/centos-7.2-64-nocm
     roles:

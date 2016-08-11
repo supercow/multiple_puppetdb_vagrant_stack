@@ -6,6 +6,9 @@ roles:
   pe-pdb:
     provisioners:
       - {type: shell, inline: 'curl -k https://mom.vm:8140/packages/current/install.bash | sudo bash -s main:server=mom.vm'}
+  pe-compile:
+    provisioners:
+      - {type: shell, inline: 'curl -k https://mom.vm:8140/packages/current/install.bash | sudo bash -s main:server=mom.vm main:dns_alt_names=puppet,puppet.vm'}
   haproxy:
     provisioners:
       - {type: shell, inline: 'curl -k https://mom.vm:8140/packages/current/install.bash | sudo bash -s main:server=mom.vm'}
