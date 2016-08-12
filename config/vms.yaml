@@ -51,5 +51,6 @@ vms:
       - el-stop-firewall
       - el-fix-path
       - base
+      - agent
 
 # vim: set ft=yaml:

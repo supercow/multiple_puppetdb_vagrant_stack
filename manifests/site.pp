@@ -2,6 +2,11 @@
 # This is a hack. Don't do this on a real machine
 $haproxy = generate('/bin/getent', 'hosts', 'haproxy.vm')
 $haproxy_ip = strip(regsubst($haproxy,'^([0-9.]*).*$','\1'))
+host { 'puppet.vm':
+  ensure       => 'present',
+  ip           => $haproxy_ip,
+  host_aliases => ['puppet'],
+}
 host { 'puppetdb.vm':
   ensure       => 'present',
   ip           => $haproxy_ip,
@@ -72,6 +77,23 @@ node 'haproxy.vm' {
       'balance' => 'leastconn',
     },
   }
+
+  # Compile master pool
+  $compile1 = generate('/bin/getent', 'hosts', 'compile1.vm')
+  $compile1_ip = strip(regsubst($compile1,'^([0-9.]*).*$','\1'))
+  haproxy::balancermember { 'compile-compile1.vm':
+    server_names      => 'compile1.vm',
+    ipaddresses       => $compile1_ip,
+    ports             => '8081',
+    listening_service => 'puppet',
+  }
+  haproxy::listen { 'puppet':
+    ports   => '8140',
+    options => {
+      'balance' => 'leastconn',
+    },
+  }
+
 }
 
 node /^pdb\d\.vm/ {

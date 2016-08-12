@@ -12,3 +12,6 @@ roles:
   haproxy:
     provisioners:
       - {type: shell, inline: 'curl -k https://mom.vm:8140/packages/current/install.bash | sudo bash -s main:server=mom.vm'}
+  agent:
+    provisioners:
+      - {type: shell, inline: 'curl -k https://mom.vm:8140/packages/current/install.bash | sudo bash -s main:server=puppet.vm'}
