@@ -108,7 +108,7 @@ node 'mom.vm' {
   }
 
   node_group { 'Standalone Compile Master':
-    parent  => 'PE Master',
+    parent  => 'PE Infrastructure',
     rule    => ['and', ['~',['fact','fqdn'],'^compile\d+\.vm$']],
     classes => {'puppet_enterprise::profile::master' => { 'puppetdb_host' => 'puppetdb.vm' } },
   }
@@ -123,9 +123,6 @@ node 'mom.vm' {
     path => '/opt/puppetlabs/server/data/postgresql/9.4/data/pg_ident.conf',
     line => 'pe-puppetdb-map pe-puppetdb pe-puppetdb',
   }
-
-
-
 }
 
 
