@@ -97,7 +97,6 @@ node 'haproxy.vm' {
 }
 
 node /^pdb\d\.vm/ {
-
   user { 'pe-puppet':
     ensure => present,
     gid    => 'pe-puppetdb',
@@ -107,13 +106,6 @@ node /^pdb\d\.vm/ {
     certname => 'pe-puppetdb',
     before   => Puppet_enterprise::Certs['pe-puppetdb'],
   }
-
-  # Install PuppetDB
-  #class { 'puppet_enterprise::profile::puppetdb':
-  #  certname              => 'puppetdb.vm',
-  #  database_name         => 'mom.vm',
-  #}
-
 }
 
 node 'mom.vm' {
