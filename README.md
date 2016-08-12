@@ -5,6 +5,7 @@ creates a Puppet infrastructure with:
 
 - A MoM with a PostgreSQL database
 - Two PuppetDB servers behind an HAProxy load balancer
+- One separate compile master using the load balanced PuppetDB VIP
 
 A shared certificate is generated and shared amongst the PuppetDB servers to
 avoid issues related to [SERVER-207](https://tickets.puppetlabs.com/browse/SERVER-207).
@@ -17,5 +18,9 @@ and not copied completely in a production deployment.
 
 1. `bundle install`
 1. `bundle exec vagrant up`
-1. Change `puppetdb_host` in the `PE Infrastructure` group to `puppetdb.vm`
 1. Run `puppet agent -t` on the `mom.vm`
+1. Sign the compile master cert with `--allow-dns-alt-names` on the MoM
+1. Run `puppet agent -t` on each server
+1. Add puppet.vm to the agent's host file and run `puppet agent -t`. Verify from
+   the PuppetDB logs that one of the load balanced PuppetDB servers is receiving
+   the commands instead of the MoM.

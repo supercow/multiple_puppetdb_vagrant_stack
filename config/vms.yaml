@@ -1,4 +1,5 @@
 ---
+# MoM must come up first to provide configuration for everything else
 vms:
   - name: mom.vm
     box: puppetlabs/centos-7.2-64-nocm
@@ -9,14 +10,6 @@ vms:
       - el-stop-firewall
       - el-fix-path
       - 2gb-memory
-      - base
-
-  - name: haproxy.vm
-    box: puppetlabs/centos-7.2-64-nocm
-    roles:
-      - haproxy
-      - el-stop-firewall
-      - el-fix-path
       - base
 
   - name: pdb1.vm
@@ -43,6 +36,16 @@ vms:
       - el-stop-firewall
       - el-fix-path
       - 1gb-memory
+      - base
+
+# HAProxy must come up last for our DNS hacks
+# The order of this system doesn't actually matter if you know IPs ahead of time
+  - name: haproxy.vm
+    box: puppetlabs/centos-7.2-64-nocm
+    roles:
+      - haproxy
+      - el-stop-firewall
+      - el-fix-path
       - base
 
   - name: agent.vm
