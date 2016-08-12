@@ -84,7 +84,7 @@ node 'haproxy.vm' {
   haproxy::balancermember { 'compile-compile1.vm':
     server_names      => 'compile1.vm',
     ipaddresses       => $compile1_ip,
-    ports             => '8081',
+    ports             => '8140',
     listening_service => 'puppet',
   }
   haproxy::listen { 'puppet':
