@@ -8,6 +8,8 @@ host { 'puppetdb.vm':
   host_aliases => ['puppetdb'],
 }
 
+node default {}
+
 node 'haproxy.vm' {
   class { '::haproxy':
     global_options => {
