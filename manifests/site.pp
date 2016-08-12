@@ -105,6 +105,12 @@ node 'mom.vm' {
     classes => {'puppet_enterprise::profile::puppetdb' => { 'certname' => 'pe-puppetdb' } },
   }
 
+  node_group { 'Standalone Compile Master':
+    parent  => 'PE Master',
+    rule    => ['and', ['~',['fact','fqdn'],'^compile\d+\.vm$']],
+    classes => {'puppet_enterprise::profile::master' => { 'puppetdb_host' => 'puppetdb.vm' } },
+  }
+
   class { '::puppetdb_shared_cert::ca':
     certname      => 'pe-puppetdb',
     dns_alt_names => ['haproxy','haproxy.vm','puppetdb', 'puppetdb.vm'],
